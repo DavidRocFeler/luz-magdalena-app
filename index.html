@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Medidores de Luz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Control de Medidores de Luz</h1>
+            <p>Toma de medidores nmr - 1800464 | Segundo Piso</p>
+        </div>
+
+        <div class="content">
+            <div class="alert alert-warning" id="alertWarning" style="display: none;">
+                ⚠️ <span id="mensajeError">Por favor, completa todos los campos requeridos.</span>
+            </div>
+
+            <div class="alert alert-success" id="alertSuccess" style="display: none;">
+                ✅ ¡Cálculos realizados correctamente!
+            </div>
+
+            <div class="info-box">
+                <h3>📋 Instrucciones:</h3>
+                <ul>
+                    <li>Activa/desactiva los cuartos que están ocupados usando los switches</li>
+                    <li><strong>Cuarto Azotea</strong> NO tiene medidor (paga 10 S/ fijos siempre)</li>
+                    <li>Ingresa los <strong>nombres de los cuartos</strong> y guárdalos</li>
+                    <li>Ingresa las <strong>lecturas anteriores y actuales</strong> de cada medidor activo</li>
+                    <li>Si un cuarto tiene consumo 0 (lectura anterior = actual), se considerará INACTIVO</li>
+                    <li>Ingresa el <strong>costo total del recibo</strong> de luz</li>
+                    <li>Haz clic en <strong>"Calcular"</strong> para ver los resultados</li>
+                    <li>Puedes descargar el resultado en <strong>PDF</strong></li>
+                </ul>
+            </div>
+
+            <div class="input-section">
+                <h2>👤 Nombres de Cuartos (Editables)</h2>
+                <div class="input-group">
+                    <div class="input-field">
+                        <label>Cuarto 1:</label>
+                        <input type="text" id="nombre_cuarto1" placeholder="Ej: Cuarto Grande">
+                    </div>
+                    <div class="input-field">
+                        <label>Cuarto 2:</label>
+                        <input type="text" id="nombre_cuarto2" placeholder="Ej: Cuarto Mediano">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-field">
+                        <label>Cuarto 3:</label>
+                        <input type="text" id="nombre_cuarto3" placeholder="Ej: Cuarto Pequeño">
+                    </div>
+                    <div class="input-field">
+                        <label>Cuarto 4:</label>
+                        <input type="text" id="nombre_cuarto4" placeholder="Ej: Cuarto Vacío">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-field">
+                        <label>Cuarto 5 (Azotea - Sin medidor):</label>
+                        <input type="text" id="nombre_cuarto5" placeholder="Ej: Cuarto Azotea">
+                    </div>
+                </div>
+                <button class="btn-guardar" onclick="guardarNombres()">
+                    💾 Guardar Nombres
+                </button>
+            </div>
+
+            <div class="input-section">
+                <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+                    <h2 style="margin: 0;">📊 Lecturas de Medidores</h2>
+                    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+                        <label style="font-weight: bold; color: #667eea;">Período de consumo:</label>
+                        <select id="mes_seleccionado" onchange="cambiarMes()" style="padding: 8px 12px; border: 2px solid #667eea; border-radius: 8px; font-size: 14px; cursor: pointer; min-width: 150px;">
+                            <option value="0">Enero</option>
+                            <option value="1">Febrero</option>
+                            <option value="2">Marzo</option>
+                            <option value="3">Abril</option>
+                            <option value="4">Mayo</option>
+                            <option value="5">Junio</option>
+                            <option value="6">Julio</option>
+                            <option value="7">Agosto</option>
+                            <option value="8">Septiembre</option>
+                            <option value="9">Octubre</option>
+                            <option value="10">Noviembre</option>
+                            <option value="11">Diciembre</option>
+                        </select>
+                        <span id="texto_periodo" style="font-weight: bold; color: #667eea; display: block; width: 100%;"></span>
+                    </div>
+                </div>
+                
+                <!-- CUARTO 1 (GRANDE) -->
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="switch_cuarto1" checked onchange="toggleCuarto(1)">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-label" id="switch_label1">Cuarto 1 - ACTIVADO</span>
+                </div>
+                <div id="container_cuarto1">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label><span id="label_cuarto1">Cuarto 1</span> - <span class="fecha-label" id="fecha_ant_1"></span></label>
+                            <input type="number" id="cuarto1_ant" placeholder="Ingresa lectura">
+                        </div>
+                        <div class="input-field">
+                            <label><span id="label_cuarto1_act">Cuarto 1</span> - <span class="fecha-label" id="fecha_act_1"></span></label>
+                            <input type="number" id="cuarto1_act" placeholder="Ingresa lectura">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CUARTO 2 (MEDIANO) -->
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="switch_cuarto2" checked onchange="toggleCuarto(2)">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-label" id="switch_label2">Cuarto 2 - ACTIVADO</span>
+                </div>
+                <div id="container_cuarto2">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label><span id="label_cuarto2">Cuarto 2</span> - <span class="fecha-label" id="fecha_ant_2"></span></label>
+                            <input type="number" id="cuarto2_ant" placeholder="Ingresa lectura">
+                        </div>
+                        <div class="input-field">
+                            <label><span id="label_cuarto2_act">Cuarto 2</span> - <span class="fecha-label" id="fecha_act_2"></span></label>
+                            <input type="number" id="cuarto2_act" placeholder="Ingresa lectura">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CUARTO 3 (PEQUEÑO) -->
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="switch_cuarto3" checked onchange="toggleCuarto(3)">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-label" id="switch_label3">Cuarto 3 - ACTIVADO</span>
+                </div>
+                <div id="container_cuarto3">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label><span id="label_cuarto3">Cuarto 3</span> - <span class="fecha-label" id="fecha_ant_3"></span></label>
+                            <input type="number" id="cuarto3_ant" placeholder="Ingresa lectura">
+                        </div>
+                        <div class="input-field">
+                            <label><span id="label_cuarto3_act">Cuarto 3</span> - <span class="fecha-label" id="fecha_act_3"></span></label>
+                            <input type="number" id="cuarto3_act" placeholder="Ingresa lectura">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CUARTO 4 (VACÍO) - INACTIVO POR DEFECTO -->
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="switch_cuarto4" onchange="toggleCuarto(4)">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-label" id="switch_label4">Cuarto 4 - DESACTIVADO</span>
+                </div>
+                <div id="container_cuarto4" class="cuarto-desactivado">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label><span id="label_cuarto4">Cuarto 4</span> - <span class="fecha-label" id="fecha_ant_4"></span></label>
+                            <input type="number" id="cuarto4_ant" placeholder="Ingresa lectura" disabled>
+                        </div>
+                        <div class="input-field">
+                            <label><span id="label_cuarto4_act">Cuarto 4</span> - <span class="fecha-label" id="fecha_act_4"></span></label>
+                            <input type="number" id="cuarto4_act" placeholder="Ingresa lectura" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CUARTO 5 (AZOTEA) - SIN MEDIDOR, ACTIVO -->
+                <div class="switch-container">
+                    <label class="switch">
+                        <input type="checkbox" id="switch_cuarto5" checked onchange="toggleCuarto(5)">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="switch-label" id="switch_label5">Cuarto 5 (Azotea) - ACTIVADO - Sin medidor (10 S/ fijos)</span>
+                </div>
+                <div id="container_cuarto5">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label><span id="label_cuarto5">Cuarto 5</span> - <span class="fecha-label" id="fecha_ant_5"></span></label>
+                            <input type="text" id="cuarto5_ant" placeholder="No hay medidor" disabled style="background-color: #f3f4f6; color: #9ca3af;">
+                        </div>
+                        <div class="input-field">
+                            <label><span id="label_cuarto5_act">Cuarto 5</span> - <span class="fecha-label" id="fecha_act_5"></span></label>
+                            <input type="text" id="cuarto5_act" placeholder="No hay medidor" disabled style="background-color: #f3f4f6; color: #9ca3af;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-section total-input">
+                <div class="input-field">
+                    <label>💰 Costo Total del Recibo (en soles):</label>
+                    <input type="number" id="costo_total" step="0.01" placeholder="Ej: 100.00">
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn-calcular" onclick="calcular()">
+                    <span>🧮</span> Calcular Consumos
+                </button>
+                <button class="btn-pdf" onclick="descargarPDF()">
+                    <span>📄</span> Descargar PDF
+                </button>
+                <button class="btn-limpiar" onclick="limpiar()">
+                    <span>🗑️</span> Limpiar Todo
+                </button>
+            </div>
+
+            <div id="resultados" style="margin-top: 30px; display: none;">
+                <h2 style="color: #667eea; margin-bottom: 20px;">📈 Resultados del Consumo</h2>
+                <div class="table-container" id="tabla-pdf">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Lectura Ant.</th>
+                                <th>Lectura Act.</th>
+                                <th>Consumo (kW)</th>
+                                <th>Consumo (S/)</th>
+                                <th>Escalera+Lavadero</th>
+                                <th>Luz Baño</th>
+                                <th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
