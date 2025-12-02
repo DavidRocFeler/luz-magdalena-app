@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @media print {
+      body { margin: 0; }
+      .section { page-break-inside: avoid; }
+    }
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 40px;
+      color: #333;
+    }
+    h1 {
+      color: #2c3e50;
+      border-bottom: 3px solid #3498db;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: #2980b9;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+    h3 {
+      color: #34495e;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+    .section {
+      margin-bottom: 30px;
+      page-break-inside: avoid;
+    }
+    .highlight {
+      background-color: #fff3cd;
+      padding: 15px;
+      border-left: 4px solid #ffc107;
+      margin: 20px 0;
+    }
+    .formula {
+      background-color: #e8f4f8;
+      padding: 15px;
+      border-left: 4px solid #3498db;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+    }
+    ul {
+      margin: 10px 0;
+      padding-left: 25px;
+    }
+    li {
+      margin: 8px 0;
+    }
+    .example {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border: 1px solid #dee2e6;
+      margin: 15px 0;
+      border-radius: 5px;
+    }
+    .step {
+      background-color: #d4edda;
+      padding: 10px 15px;
+      margin: 10px 0;
+      border-left: 4px solid #28a745;
+      border-radius: 3px;
+    }
+    .important {
+      font-weight: bold;
+      color: #c0392b;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 Manual de Usuario - Control de Medidores de Luz</h1>
+
+  <div class="section">
+    <h2>🎯 ¿Qué hace esta aplicación?</h2>
+    <p>Esta aplicación calcula automáticamente cuánto debe pagar cada cuarto por el consumo de luz, distribuyendo el costo total del recibo de manera justa y proporcional según el consumo real de cada uno.</p>
+  </div>
+
+  <div class="section">
+    <h2>📋 Conceptos Importantes</h2>
+    
+    <h3>Gastos Compartidos (15 soles fijos)</h3>
+    <p>Estos gastos se dividen entre todos los cuartos activos:</p>
+    <ul>
+      <li><strong>10 soles:</strong> Luz de escalera + Luz de lavadero</li>
+      <li><strong>5 soles:</strong> Luz del baño (NO paga el Cuarto Grande)</li>
+    </ul>
+
+    <h3>Cuarto Azotea (NO TIENE MEDIDOR)</h3>
+    <ul>
+      <li>NO tiene medidor de luz propio</li>
+      <li>Paga 10 soles fijos siempre que esté activo</li>
+      <li>Estos 10 soles YA incluyen gastos compartidos + consumo estimado</li>
+    </ul>
+
+    <div class="highlight">
+      <h3>CONSUMO DE LUZ - GASTOS FIJOS = 100% QUE SE USARÁ PARA IGUALAR AL 100% DE LA SUMA DE MEDIDORES DE LUZ ACTIVOS</h3>
+      <p>Esta diferencia equivale al 100% del consumo eléctrico controlado</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>🧮 Ejemplo de Cálculo Detallado</h2>
+    
+    <h3>Consumo de electricidad:</h3>
+    <div class="example">
+      <p>Monto total del recibo: <strong>S/71.00</strong></p>
+    </div>
+
+    <h3>Monto que equivale al 100%:</h3>
+    <div class="formula">
+      71 - 20 (gasto compartido + consumo cuarto azotea)<br>
+      = 51 soles = 100%
+    </div>
+
+    <h3>Ejemplo de medidores:</h3>
+    <table>
+      <tr>
+        <th>Cuarto</th>
+        <th>Consumo (kWh)</th>
+      </tr>
+      <tr>
+        <td>Cuarto Vacío</td>
+        <td>0 kWh</td>
+      </tr>
+      <tr>
+        <td>Cuarto Pequeño</td>
+        <td>5 kWh</td>
+      </tr>
+      <tr>
+        <td>Cuarto Mediano</td>
+        <td>8 kWh</td>
+      </tr>
+      <tr>
+        <td>Cuarto Grande</td>
+        <td>10 kWh</td>
+      </tr>
+    </table>
+
+    <h3>Consumo total de medidores:</h3>
+    <div class="formula">
+      0 + 5 + 8 + 10 = 23 kWh = 100%<br>
+      51 soles = 100%
+    </div>
+
+    <h3>Distribución por habitación:</h3>
+    <table>
+      <tr>
+        <th>Cuarto</th>
+        <th>Consumo</th>
+        <th>Porcentaje</th>
+        <th>Monto a Pagar</th>
+      </tr>
+      <tr>
+        <td>Cuarto Vacío</td>
+        <td>0 kWh</td>
+        <td>0/23 = 0%</td>
+        <td>S/0.00</td>
+      </tr>
+      <tr>
+        <td>Cuarto Pequeño</td>
+        <td>5 kWh</td>
+        <td>5/23 = 21.73%</td>
+        <td>S/11.08</td>
+      </tr>
+      <tr>
+        <td>Cuarto Mediano</td>
+        <td>8 kWh</td>
+        <td>8/23 = 34.78%</td>
+        <td>S/17.73</td>
+      </tr>
+      <tr>
+        <td>Cuarto Grande</td>
+        <td>10 kWh</td>
+        <td>10/23 = 43.47%</td>
+        <td>S/22.17</td>
+      </tr>
+    </table>
+
+    <div class="highlight">
+      <h3>Verificación del total:</h3>
+      <p>11.08 + 17.73 + 22.17 = 50.98 soles</p>
+      <p class="important">Por este motivo el consumo siempre será redondeado al número siguiente.</p>
+      <p>Consumo de la suma de cuartos con medidores = 51 soles</p>
+    </div>
+
+    <div class="formula">
+      <strong>Fórmula Final:</strong><br>
+      Monto 100% + (gastos compartidos + consumo cuarto azotea) = Pago total del consumo general de luz
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>❌ Cuartos Inactivos</h2>
+    <p>Un cuarto es INACTIVO cuando:</p>
+    <ul>
+      <li>Su switch está desactivado, o</li>
+      <li>Su consumo es 0 kW (lectura anterior = lectura actual)</li>
+    </ul>
+    <p class="important">Los cuartos inactivos NO pagan nada y NO aparecen en el resultado.</p>
+  </div>
+
+  <div class="section">
+    <h2>🚀 Guía Paso a Paso</h2>
+    
+    <div class="step">
+      <strong>Paso 1: Configurar Nombres de Cuartos</strong>
+      <ul>
+        <li>Ingresa los nombres personalizados</li>
+        <li>Clic en "💾 Guardar Nombres"</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <strong>Paso 2: Seleccionar Período de Consumo</strong>
+      <ul>
+        <li>Usa el selector</li>
+        <li>Las fechas se llenan automáticamente (4 del mes anterior → 4 del mes elegido)</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <strong>Paso 3: Activar/Desactivar Cuartos</strong>
+      <ul>
+        <li>Los switches controlan qué cuartos entran en el cálculo</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <strong>Paso 4: Ingresar Lecturas</strong>
+      <ul>
+        <li>Solo cuartos activos (excepto Azotea)</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <strong>Paso 5: Ingresar Costo Total del Recibo</strong>
+      <ul>
+        <li>Ejemplo: 100.00</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <strong>Paso 6: Calcular</strong>
+      <ul>
+        <li>Clic en "🧮 Calcular Consumos"</li>
+        <li>Si falta algo → verás un mensaje de error</li>
+      </ul>
+    </div>
+
+    <div class="step">
+      <strong>Paso 7: Descargar PDF</strong>
+      <ul>
+        <li>Clic en "📄 Descargar PDF"</li>
+        <li>Incluye: período, vencimiento, tabla de consumos</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>📊 Escenarios de Ejemplo</h2>
+    
+    <h3>🔹 Escenario 1: Todos Activos (5/5)</h3>
+    <p>Cuando todos los cuartos están activos, el costo se distribuye proporcionalmente entre todos según su consumo real.</p>
+
+    <h3>🔹 Escenario 2: Un Cuarto Inactivo (4/5)</h3>
+    <p>El cuarto inactivo no paga nada y su consumo no se considera en el cálculo. Los gastos compartidos se dividen solo entre los cuartos activos.</p>
+
+    <h3>🔹 Escenario 3: Dos Cuartos Inactivos (3/5)</h3>
+    <p>Con menos cuartos activos, cada uno asume una mayor proporción de los gastos compartidos.</p>
+
+    <h3>🔹 Escenario 4: Solo Cuarto Grande Activo (1/5)</h3>
+    <p>Si solo hay un cuarto activo, este asume el 100% del consumo y todos los gastos compartidos aplicables.</p>
+
+    <p><em>Cada escenario muestra cómo cambia la distribución dependiendo de cuántos cuartos están activos.</em></p>
+  </div>
+
+  <div class="section">
+    <h2>✅ Conclusión</h2>
+    <p>Esta herramienta garantiza una distribución justa, clara y automática del consumo eléctrico, adaptándose a distintos escenarios según habitaciones activas o inactivas.</p>
+  </div>
+
+  <div style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #ccc; text-align: center; color: #7f8c8d;">
+    <p>Manual de Usuario - Control de Medidores de Luz</p>
+    <p>Documento generado automáticamente</p>
+  </div>
+</body>
+</html>
+    

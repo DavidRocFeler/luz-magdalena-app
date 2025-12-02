@@ -15,11 +15,51 @@ Estos gastos se dividen entre todos los cuartos activos:
 -   **10 soles:** Luz de escalera + Luz de lavadero\
 -   **5 soles:** Luz del baño (**NO paga el Cuarto Grande**)
 
-### **Cuarto Azotea (Especial)**
+### **Cuarto Azotea (NO TIENE MEDIDOR)**
 
 -   NO tiene medidor de luz propio\
 -   Paga **10 soles fijos** siempre que esté activo\
     Estos 10 soles **YA incluyen gastos compartidos + consumo estimado**
+
+
+### CONSUMO DE LUZ - GASTOS FIJOS = 100% QUE SE USARA PARA IGUALAR AL 100% DE LA SUMA DE MEDIDORES DE LUZ ACTIVOS
+
+### Esta diferencia equivale al 100% del consumo electrico controlado
+
+#### ejmp consumo electricidad: 
+- s/71.00 
+
+#### ejmp del monto que equivale al 100%
+- 71 - 20 (gasto compartido + consumo cuarto azotea)
+- 51 = 100%
+
+#### ejmp de medidores:
+
+-   cuarto vacio = 0klw consumo
+-   cuarto pequeño = 5klw consumo
+-   cuarto mediano = 8klw consumo
+-   cuarto grande = 10klw consumo
+
+#### consumo de la suma total de medidores que equivale al 100% en klw: 0 + 5 + 8 + 10 
+
+#### resultado: 
+
+- 23 klw      = 100%
+- 51 soles    = 100% 
+
+#### apartir de esto cada habitacion con medidor paga el porsentage correspondiente
+
+-   cuarto vacio = 0klw consumo = 0/23 = 0% de 51 soles 
+-   cuarto pequeño = 5klw consumo = 5/23 = 21.73% de 51 soles = 11.08 soles en total que debe pagar de luz
+-   cuarto mediano = 8klw consumo = 8/23 = 34.78% de 51 soles = 17.73 soles en total que debe pagar de luz 
+-   cuarto grande = 10klw consumo = 10/23 = 43.47% de 51 soles = 22.17 soles en total que debe pagar de luz 
+
+#### Sumando el total de luz que debe pagar cada cuarto da como resultado el monto total que equivale al 100% 
+
+-   11.08 + 17.73 + 22.17 = 50.98 (por este motivo el consumo siempre sera redondeado al numero siguiente)
+-   consumo de la suma de cuartos con medidores = 51 soles 
+
+#### El monto que equivale al 100% + ( gastos compartidos + consumo cuarto azotea) = pago total del consumo general de luz
 
 ### **Cuartos Inactivos**
 
